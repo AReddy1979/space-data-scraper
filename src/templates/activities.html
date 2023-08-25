@@ -1,0 +1,134 @@
+{% extends "template.html" %}
+
+{% block content %}
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+   <div><canvas id="speed" width="600" height="240"></canvas></div>
+   <div><canvas id="density" width="600" height="240"></canvas></div>
+   <div><canvas id="temperature" width="600" height="240"></canvas></div>
+
+      <script>
+
+         let solar_speed = {{ speed }};
+         let solar_density = {{ density }};
+         let solar_temperature = {{ temperature }};
+         let time_tag = '{{ time }}';
+
+         let tt = time_tag.replaceAll('&#39;','');
+         let xy  = tt.split(/,/);
+
+         (function(){
+            let ctx_speed = document.getElementById('speed').getContext('2d');
+            let ctx_density = document.getElementById('density').getContext('2d');
+            let ctx_temp = document.getElementById('temperature').getContext('2d');
+
+            let chart_speed = new Chart(ctx_speed, 
+            {
+               type: 'line', 
+               data:{
+                  labels: xy,
+                  datasets:[{
+                     label: 'Speed',
+                     data: solar_speed,
+                     borderColor: 'rgb(255, 99, 132)'
+
+                  }]
+               },
+               options: {
+                  interaction:{
+                     mode: 'index',
+                     intersect: false
+                  },
+                  elements:{
+                     point:{
+                       radius: 0
+                    } 
+                  },
+                  scales:{
+                     x:{
+                        maxRotation: 0,
+                        autoSkip: true,
+                        ticks:{
+                           display: false
+                        }
+                     }
+                  },
+                  animation: false,
+               },
+            });
+
+
+            let chart_density = new Chart(ctx_density, 
+            {
+               type: 'line', 
+               data:{
+                  labels: xy,
+                  datasets:[{
+                     label: 'Density',
+                     data: solar_density,
+                     borderColor: 'rgb(99, 255, 132)'
+
+                  }]
+               },
+               options: {
+                  interaction:{
+                     mode: 'index',
+                     intersect: false
+                  },
+                  elements:{
+                     point:{
+                       radius: 0
+                    } 
+                  },
+                  scales:{
+                     x:{
+                        maxRotation: 0,
+                        autoSkip: true,
+                        ticks:{
+                           display: false
+                        }
+                     }
+                  },
+                  animation: false,
+               },
+            });
+
+            let chart_temp = new Chart(ctx_temp, 
+            {
+               type: 'line', 
+               data:{
+                  labels: xy,
+                  datasets:[{
+                     label: 'Temperature',
+                     data: solar_temperature,
+                     borderColor: 'rgb(255, 132, 255)'
+
+                  }]
+               },
+               options: {
+                  interaction:{
+                     mode: 'index',
+                     intersect: false
+                  },
+                  elements:{
+                     point:{
+                       radius: 0
+                    } 
+                  },
+                  scales:{
+                     x:{
+                        maxRotation: 0,
+                        autoSkip: true,
+                        ticks:{
+                           display: false
+                        }
+                     }
+                  },
+                  animation: false,
+               },
+            });
+
+         })();
+
+      </script>
+{% endblock %}

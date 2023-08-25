@@ -1,0 +1,47 @@
+{% extends "template.html" %}
+
+{% block content %}
+
+<div class="container" style="text-align: center; padding-top: 20px;">
+    <h1> Welcome to the Space Data Scraper!</h1>
+</div>
+
+<div class="container">
+        <div class="row page-row">
+            <div class="col">
+                <div class="container example-img">
+                    <img src="{{url_for('static', filename='markus-winkler-placeholder-image-unsplash.jpg')}}" class="rounded mx-auto d-block" alt="solar-wind-data-example">
+                </div>
+            </div>
+            <div class="col">
+                <div class="container page-text">
+                    View a plot of this week's solar wind data.
+                </div>
+            </div>
+        </div>
+        <div class="row page-row">
+            <div class="col">
+                <div class="container page-text">
+                    Get updates on the current solar weather.
+                </div>
+            </div>
+            <div class="col">
+                <div class="container example-img">
+                    <img src="{{url_for('static', filename='markus-winkler-placeholder-image-unsplash.jpg')}}" class="rounded mx-auto d-block" alt="solar-wind-data-example">
+                </div>
+            </div>
+        </div>
+        <div class="row page-row">
+            <div class="col">
+                <div class="container example-img">
+                    <img src="{{url_for('static', filename='markus-winkler-placeholder-image-unsplash.jpg')}}" class="rounded mx-auto d-block" alt="solar-wind-data-example">
+                </div>
+            </div>
+            <div class="col">
+                <div class="container page-text">
+                    Share your personal findings with friends using our community posts feature.
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

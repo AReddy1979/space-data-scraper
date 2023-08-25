@@ -1,0 +1,35 @@
+{% extends "template.html" %}
+
+{% block content %}
+
+<template>
+    <div class="communityUploadCard">
+        <h4 id="postTitle" style="color: black; padding: 10px 10px 0px 10px; margin: 1px">Post Title</h4>
+        <h5 id="postUser" style="color: gray; padding: 0px 0px 0px 10px; margin 1px">username</h5>
+    </div>
+</template>
+
+<h3 style="font-family: sans-serif; text-align: center">Community Uploads</h3>
+
+<div sytle="margin: 0px auto;"><button onClick="testCommunityCards()">Test Community Upload Cards</button></div>
+
+<div class="communityUploadArea">
+
+</div>
+
+<script>
+    function displayCard() {
+        let templateCard = document.getElementsByTagName("template")[0];
+        let cardInstance = templateCard.content.cloneNode(true);
+
+        let contentSpace = document.getElementsByClassName("communityUploadArea")[0];
+        contentSpace.appendChild(cardInstance);
+    }
+
+    function testCommunityCards() {
+        displayCard();
+    }
+
+</script>
+
+{% endblock %}

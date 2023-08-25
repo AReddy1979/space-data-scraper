@@ -1,0 +1,356 @@
+{% extends "template.html" %}
+
+{% block content %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+
+<!--        <h3>Graphs Showing Solar Wind Activity (Last 24 Hours)</h3>-->
+<!--        <button type="button" onclick="location.href = 'wind/all'">All Activities</button>-->
+
+<div class="container">
+    <div class="row page-row">
+        <h3>Solar Wind Speed (Last 24 Hours)</h3>
+        <div><canvas id="speed-daily" width="600" height="240"></canvas></div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row page-row">
+        <h3>Solar Wind Density (Last 24 Hours)</h3>
+        <div><canvas id="density-daily" width="600" height="240"></canvas></div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row page-row">
+        <h3>Solar Wind Temperature (Last 24 Hours)</h3>
+        <div><canvas id="temperature-daily" width="600" height="240"></canvas></div>
+    </div>
+</div>
+
+
+<!--        <h3>Graphs Showing Solar Wind Activity (Last 7 Days)</h3>-->
+<!--        <button type="button" onclick="location.href = 'wind/temperature'">Temperature</button>-->
+<!--        <button type="button" onclick="location.href = 'wind/density'">Density</button>-->
+<!--        <button type="button" onclick="location.href = 'wind/speed'">Speed</button>-->
+
+<div class="container">
+    <div class="row page-row">
+        <h3>Solar Wind Speed (Last 7 Days)</h3>
+        <div><canvas id="speed-weekly" width="600" height="240"></canvas></div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row page-row">
+        <h3>Solar Wind Density (Last 7 Days)</h3>
+        <div><canvas id="density-weekly" width="600" height="240"></canvas></div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row page-row">
+        <h3>Solar Wind Temperature (Last 7 Days)</h3>
+        <div><canvas id="temperature-weekly" width="600" height="240"></canvas></div>
+    </div>
+</div>
+
+<script>
+
+    let solar_speed_daily = {{ speed_daily }};
+    let solar_density_daily = {{ density_daily }};
+    let solar_temperature_daily = {{ temperature_daily }};
+    let time_tag_daily = '{{ time_daily }}';
+
+    let tt_daily = time_tag_daily.replaceAll('&#39;','');
+    let xy  = tt_daily.split(/,/);
+
+    (function(){
+    let ctx_speed = document.getElementById('speed-daily').getContext('2d');
+    let ctx_density = document.getElementById('density-daily').getContext('2d');
+    let ctx_temp = document.getElementById('temperature-daily').getContext('2d');
+
+    let chart_speed = new Chart(ctx_speed,
+    {
+       type: 'line',
+       data:{
+          labels: xy,
+          datasets:[{
+             label: 'Speed',
+             data: solar_speed_daily,
+             borderColor: 'rgb(255, 99, 132)'
+          }]
+       },
+       options: {
+          interaction:{
+             mode: 'index',
+             intersect: false
+          },
+          elements:{
+             point:{
+               radius: 0
+            }
+          },
+          scales:{
+             x:{
+                maxRotation: 0,
+                autoSkip: true,
+                ticks:{
+                   display: false
+                }
+             }
+          },
+          animation: false,
+       },
+    });
+
+    // 'rgb(99, 255, 132)'
+    let chart_density = new Chart(ctx_density,
+        {
+           type: 'line',
+           data:{
+              labels: xy,
+              datasets:[{
+                 label: 'Density',
+                 data: solar_density_daily,
+                 borderColor: 'rgb(255, 175, 30)'
+              }]
+           },
+           options: {
+              interaction:{
+                 mode: 'index',
+                 intersect: false
+              },
+              elements:{
+                 point:{
+                   radius: 0
+                }
+              },
+              scales:{
+                 x:{
+                    maxRotation: 0,
+                    autoSkip: true,
+                    ticks:{
+                       display: false
+                    }
+                 }
+              },
+              animation: false,
+           },
+        });
+
+    let chart_temp = new Chart(ctx_temp,
+        {
+           type: 'line',
+           data:{
+              labels: xy,
+              datasets:[{
+                 label: 'Temperature',
+                 data: solar_temperature_daily,
+                 borderColor: 'rgb(255, 132, 255)'
+              }]
+           },
+           options: {
+              interaction:{
+                 mode: 'index',
+                 intersect: false
+              },
+              elements:{
+                 point:{
+                   radius: 0
+                }
+              },
+              scales:{
+                 x:{
+                    maxRotation: 0,
+                    autoSkip: true,
+                    ticks:{
+                       display: false
+                    }
+                 }
+              },
+              animation: false,
+           },
+        });
+    })();
+
+
+    let solar_speed_weekly = {{ speed_weekly }};
+    let solar_density_weekly = {{ density_weekly }};
+    let solar_temperature_weekly = {{ temperature_weekly }};
+    let time_tag_weekly = '{{ time_weekly }}';
+
+    let tt_weekly = time_tag_weekly.replaceAll('&#39;','').split(/,/);
+    let dates = new Set();
+
+    (function(){
+    let ctx_speed_weekly = document.getElementById('speed-weekly').getContext('2d');
+    let ctx_density_weekly = document.getElementById('density-weekly').getContext('2d');
+    let ctx_temperature_weekly = document.getElementById('temperature-weekly').getContext('2d');
+
+    let chart_speed_weekly = new Chart(ctx_speed_weekly,
+        {
+           type: 'line',
+           data:{
+              labels: tt_weekly,
+              datasets:[{
+                 label: 'Speed(km/s)',
+                 data: solar_speed_weekly,
+                 borderColor: 'rgb(255, 99, 132)'
+
+              }]
+           },
+           options: {
+              interaction:{
+                 mode: 'index',
+                 intersect: false
+              },
+              elements:{
+                 point:{
+                   radius: 0
+                }
+              },
+              scales:{
+                 y: {
+                    title: {
+                       display: true,
+                       text: 'Speed(km/s)'
+                    }
+                 },
+                 x:{
+                    maxRotation: 0,
+                    autoSkip: true,
+                    ticks: {
+
+                       callback: function(val, index) {
+                          let day = this.getLabelForValue(val).substring(0,11).replace("[", "")
+                          return day
+
+                       },
+                       maxTicksLimit: 7,
+                       autoSkip: true
+                    },
+                    title: {
+                       display: true,
+                       text: 'Date',
+                    }
+                 }
+              },
+              animation: false,
+           },
+        }
+    );
+
+
+    let chart_density_weekly = new Chart(ctx_density_weekly,
+        {
+           type: 'line',
+           data:{
+              labels: tt_weekly,
+              datasets:[{
+                 label: 'Density(1/cm^3)',
+                 data: solar_density_weekly,
+                 borderColor: 'rgb(255, 175, 30)'
+
+              }]
+           },
+           options: {
+              interaction:{
+                 mode: 'index',
+                 intersect: false
+              },
+              elements:{
+                 point:{
+                   radius: 0
+                }
+              },
+              scales:{
+                 y: {
+                    title: {
+                       display: true,
+                       text: 'Density(1/cm^3)'
+                    }
+                 },
+                 x:{
+                    maxRotation: 0,
+                    autoSkip: true,
+                    ticks: {
+
+                       callback: function(val, index) {
+                          let day = this.getLabelForValue(val).substring(0,11).replace("[", "")
+                          return day
+
+                       },
+                       maxTicksLimit: 7,
+                       autoSkip: true
+                    },
+                    title: {
+                       display: true,
+                       text: 'Date',
+                    }
+                 }
+              },
+              animation: false,
+           },
+        }
+    );
+
+
+    let chart_temperature_weekly = new Chart(ctx_temperature_weekly,
+        {
+           type: 'line',
+           data:{
+              labels: tt_weekly,
+              datasets:[{
+                 label: 'Temperature(K)',
+                 data: solar_temperature_weekly,
+                 borderColor: 'rgb(255, 132, 255)'
+
+              }]
+           },
+           options: {
+              interaction:{
+                 mode: 'index',
+                 intersect: false
+              },
+              elements:{
+                 point:{
+                   radius: 0
+                }
+              },
+              scales:{
+                 y: {
+                    title: {
+                       display: true,
+                       text: 'Temperature(K)'
+                    }
+                 },
+                 x:{
+                    maxRotation: 0,
+                    autoSkip: true,
+                    ticks: {
+
+                       callback: function(val, index) {
+                          let day = this.getLabelForValue(val).substring(0,11).replace("[", "")
+                          return day
+
+                       },
+                       maxTicksLimit: 7,
+                       autoSkip: true
+                    },
+                    title: {
+                       display: true,
+                       text: 'Date',
+                    }
+                 }
+              },
+              animation: false,
+           },
+        }
+    );
+    })();
+
+</script>
+
+{% endblock %}

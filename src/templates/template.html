@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Space Data Scraper</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/template.css') }}">
+</head>
+
+<body>
+
+<!-- Banner Image and Title -->
+    <div class="container-fluid" style="background: url({{url_for('static', filename='guille-pozzi-stars-banner-unsplash.jpg')}})">
+        <div class="title-banner">
+            <h1><b>Space Data Scraper</b></h1>
+        </div>
+    </div>
+
+<!-- Navigation Bar -->
+    <div class="container">
+        <header class="d-flex justify-content-center py-3">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a href="/" class="nav-link" onmouseover="setActivePage(this)" onmouseout="setNonActivePage(this)">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/feed/7" class="nav-link" onmouseover="setActivePage(this)" onmouseout="setNonActivePage(this)">Feed</a>
+                </li>
+                <li class="nav-item" name="about">
+                    <a href="/about" class="nav-link" onmouseover="setActivePage(this)" onmouseout="setNonActivePage(this)">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/wind" class="nav-link" onmouseover="setActivePage(this)" onmouseout="setNonActivePage(this)">Solar Wind</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/solarflare" class="nav-link" onmouseover="setActivePage(this)" onmouseout="setNonActivePage(this)">Solar Flares</a>
+                </li>
+                {% if current_user.is_authenticated %}
+                     <li class="nav-item">
+                        <a href="/community" class="nav-link" onmouseover="setActivePage(this)" onmouseout="setNonActivePage(this)">Community</a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="/logout" class="nav-link" onmouseover="setActivePage(this)" onmouseout="setNonActivePage(this)">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/account" class="nav-link" onmouseover="setActivePage(this)" onmouseout="setNonActivePage(this)">Account</a>
+                    </li>
+                 {% else %}
+                    <li class="nav-item">
+                        <a href="/register" class="nav-link" onmouseover="setActivePage(this)" onmouseout="setNonActivePage(this)">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="nav-link" onmouseover="setActivePage(this)" onmouseout="setNonActivePage(this)">Login</a>
+                    </li>
+                 {% endif %}
+                <li class="nav-item">
+                    <a href="/help" class="nav-link" onmouseover="setActivePage(this)" onmouseout="setNonActivePage(this)">Help</a>
+                </li>
+            </ul>
+        </header>
+    </div>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div class="footer">GitLab Page: <a href="https://cmsc435.garrettvanhoy.com/jsantoto/space-data-scraper/-/tree/main">Here</a>, Website Authors: Abhinav, Derek, John, Johnny, Maurice</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+    <script>
+        function setActivePage(navElement) {
+            console.log("went over the following nav element");
+            console.log(navElement);
+            navElement.classList.add("active");
+
+        }
+
+        function setNonActivePage(navElement) {
+            console.log("left the following nav element");
+            console.log(navElement);
+            navElement.classList.remove("active");
+        }
+    </script>
+
+</body>
+</html>

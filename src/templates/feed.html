@@ -1,0 +1,77 @@
+{% extends "template.html" %}
+
+{% block content %}
+
+<script type = "text/javascript">
+    function check_selection(){
+        var temperature = 0;
+        var density = 0;
+        var speed = 0;
+        var t = document.getElementById("temperature");
+        var d = document.getElementById("density");
+        var s = document.getElementById("speed");
+
+        if(t.checked){
+            temperature = 1;
+        }
+        if(d.checked){
+            density = 1;
+        }
+        if(s.checked){
+            speed = 1;
+        }
+
+        var selection = ((( density << 1) | (speed)) << 1 )  | temperature;
+
+        window.location.href = '../feed/' + selection;
+
+    }
+
+</script>
+
+<div class="container">
+    <div class="row page-row">
+        <div class="row">
+            <div class="col">
+                <div class="container d-flex justify-content-center" style="font-size: 20pt">
+                    Select your space weather attributes:
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="temperature" name="temperature" value="Temperature">
+                    <label class="form-check-label" for="temperature"> Temperature </label><br>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="density" name="density" value="Density">
+                    <label class="form-check-label" for="density"> Density </label><br>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="speed" name="speed" value="Speed">
+                    <label class="form-check-label" for="speed"> Speed </label><br>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="height: 50px">
+            <!-- space out the other rows -->
+        </div>
+        <div class="row d-flex justify-content-center">
+            <button type="button" class="btn btn-primary" style="width: 250px" onclick="check_selection()">Apply Changes</button>
+        </div>
+        <div class="row" style="height: 50px">
+            <!-- space out the other rows -->
+        </div>
+        <div class="row">
+            <div class="container"  style="width: 50%">
+                <p> {{ response }} </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "template.html" %}
+
+{% block content %}
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+      <canvas id="myChart" width="600" height="400"></canvas>
+      <script>
+
+         let solar_data = {{ data1 }};
+         let time_tag = '{{ data2 }}';
+         let axis_label = '{{data3}}';
+         let tt = time_tag.replaceAll('&#39;','').split(/,/);
+         let dates = new Set();
+
+         (function(){
+            let ctx = document.getElementById('myChart').getContext('2d');
+            let chart = new Chart(ctx,
+            {
+               type: 'line',
+               data:{
+                  labels: tt,
+                  datasets:[{
+                     label: axis_label,
+                     data: solar_data,
+                     borderColor: 'rgb(255, 99, 132)'
+
+                  }]
+               },
+               options: {
+                  interaction:{
+                     mode: 'index',
+                     intersect: false
+                  },
+                  elements:{
+                     point:{
+                       radius: 0
+                    }
+                  },
+                  scales:{
+                     y: {
+                        title: {
+                           display: true,
+                           text: axis_label
+                        }
+                     },
+                     x:{
+                        maxRotation: 0,
+                        autoSkip: true,
+                        ticks: {
+
+                           callback: function(val, index) {
+                              let day = this.getLabelForValue(val).substring(0,11).replace("[", "")
+                              return day
+
+                           },
+                           maxTicksLimit: 7,
+                           autoSkip: true
+                        },
+                        title: {
+                           display: true,
+                           text: 'Date',
+                        }
+                     }
+                  },
+                  animation: false,
+               },
+            });
+         })();
+
+
+         
+      </script>
+      
+{% endblock %}

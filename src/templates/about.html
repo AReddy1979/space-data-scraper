@@ -1,0 +1,31 @@
+{% extends "template.html" %}
+
+{% block content %}
+
+<div style="margin: 50px 100px 100px 100px; font-family: sans-serif">
+        <p>
+                Welcome to Space Data Scraper! We help you find and visualize data on solar weather activity over a few
+                periods of time that you can choose for each category of data. We source the information from the
+                <a href="https://www.noaa.gov/" style="color: black;">National Oceanic and Atmospheric Administration
+                </a> (NOAA) so you can trust its validity. These tools are catered to anyone who is in need of data on
+                solar weather activity. From students to professionals, we have options and tools for everyone.
+                Below are some of the data sources straight from NOAA. This is what our tools help you to parse and view
+                as neat plots for simplified viewing and analysis. Thanks for stopping by!
+        </p>
+
+        <h3>Links to Sources for Data</h3>
+        <button type="button" onclick="location.href = 'https://services.swpc.noaa.gov/products/solar-wind/plasma-7-day.json'">Solar Weather (7 Day)</button>
+        <br>
+        <br>
+        <button type="button" onclick="location.href = 'https://services.swpc.noaa.gov/products/solar-wind/plasma-1-day.json'">Solar Weather (24 Hour)</button>
+        <br>
+        <br>
+        <button type="button" onclick="location.href = 'https://www.spaceweatherlive.com/includes/live-data.php?object=solar_flare_3d&lang=EN'">Solar Flare (SWL)</button>
+        <br>
+        <br>
+        <button type="button" onclick="location.href = 'https://services.swpc.noaa.gov/json/goes/primary/xray-flares-latest.json'">Solar Flare (NOAA)</button>
+        <br>
+        <br>
+</div>
+
+{% endblock %}

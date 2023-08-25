@@ -1,0 +1,24 @@
+{% extends "template.html" %}
+
+{% block content %}
+
+<div style="margin: 50px 100px 100px 100px; font-family: sans-serif">
+        <p>
+                To view a source of data, start by selecting one of the categories from the top navigation bar:
+        </p>
+        <p>
+                <img src="{{url_for('static', filename='nav-bar-screenshot.png')}}">
+        </p>
+
+        <p>
+                Once you have selected a category of information, you will see the information presented on the
+                left-hand side or, if there are visualization options, you can choose the timeline over which you
+                would like to view the data on the left-hand menu:
+        </p>
+        <p>
+                <img src="{{url_for('static', filename='left-hand-information.png')}}">
+                <img src="{{url_for('static', filename='left-hand-menu.png')}}">
+        </p>
+</div>
+
+{% endblock %}
